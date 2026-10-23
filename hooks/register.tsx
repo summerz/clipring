@@ -1,5 +1,5 @@
 import { atom, read, update } from 'claude-code'
-import type { EngineInterface, Register } from 'claude-code'
+import type { EngineInterface, Register, RenderElement } from 'claude-code'
 import { cutSpan, lineBounds, oneLine, preview } from './lines'
 import { chordLabel, matches, parseChord } from './keys'
 
@@ -140,7 +140,8 @@ export const register: Register = (on, options) => {
     const { Box, Button, Text } = $.ui.resolve(e)
     const cur = await read($, selected)
     const width = Math.max(20, e.props.bodyColumns - 34)
-    return (
+    const r = await next(e)
+    const band = (
       <Box borderStyle="round" borderColor="promptBorder" borderDimColor paddingX={1} gap={1}>
         <Button key="prev" plain dimColor action="pane:previous" label={L(keys.older)}onPress={() => move($, -1)} />
         <Button key="next" plain dimColor action="pane:next" label={L(keys.newer)}onPress={() => move($, 1)} />
@@ -152,6 +153,7 @@ export const register: Register = (on, options) => {
         <Text>{oneLine(list[cur] ?? '', width)}</Text>
       </Box>
     )
+    return r == null ? band : <Box flexDirection="column">{r as RenderElement}{band}</Box>
   })
 
   on('ui.render', { component: 'Pane', requestId: HELP }, async ($, e) => {

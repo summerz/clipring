@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace-manifest.json",
+  "name": "clipring",
+  "owner": { "name": "summerz", "url": "https://github.com/summerz" },
+  "description": "Install clipring, a kill ring for the Claude Code prompt box.",
+  "plugins": [
+    { "name": "clipring", "source": "./", "description": "Kill ring for the prompt box: cut lines into a history pane and paste them back.", "license": "MIT", "keywords": ["prompt", "clipboard", "kill-ring", "cut", "paste", "emacs"] }
+  ]
+}

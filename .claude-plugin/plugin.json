@@ -1,6 +1,6 @@
 {
   "name": "clipring",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Kill ring for the prompt box: cut lines into a history pane and paste them back. Key syntax: modifiers ctrl, alt (option), shift joined with +, then the key (a letter, backspace, up, down, left, right).",
   "types": "./types/index.d.ts",
   "userConfig": {

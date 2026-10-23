@@ -4,13 +4,57 @@
   "description": "Kill ring for the prompt box: cut lines into a history pane and paste them back. Key syntax: modifiers ctrl, alt (option), shift joined with +, then the key (a letter, backspace, up, down, left, right).",
   "types": "./types/index.d.ts",
   "userConfig": {
-    "cut": { "type": "string", "title": "Cut key", "description": "Cuts the selection, else the cursor's line (its newline too); the cursor lands at the end of the line above, and cuts in a row merge into one clip.", "default": "alt+backspace" },
-    "cutAll": { "type": "string", "title": "Cut-all key", "description": "Cuts the whole draft.", "default": "ctrl+alt+backspace" },
-    "paste": { "type": "string", "title": "Paste key", "description": "Pastes the selected clip at the cursor.", "default": "alt+v" },
-    "drop": { "type": "string", "title": "Delete key", "description": "Deletes the selected clip.", "default": "alt+d" },
-    "older": { "type": "string", "title": "Older-clip key", "description": "Selects the older clip.", "default": "alt+up" },
-    "newer": { "type": "string", "title": "Newer-clip key", "description": "Selects the newer clip.", "default": "alt+down" },
-    "pane": { "type": "string", "title": "Pane key", "description": "Opens or closes the full list (also /clips).", "default": "alt+c" },
-    "help": { "type": "string", "title": "Help key", "description": "Opens or closes the help pane.", "default": "alt+h" }
+    "cut": {
+      "type": "string",
+      "title": "Cut key",
+      "description": "Cuts the selection, else the cursor's line (its newline too); the cursor lands at the end of the line above, and cuts in a row merge into one clip.",
+      "default": "alt+backspace"
+    },
+    "cutAll": {
+      "type": "string",
+      "title": "Cut-all key",
+      "description": "Cuts the whole draft.",
+      "default": "ctrl+alt+backspace"
+    },
+    "paste": {
+      "type": "string",
+      "title": "Paste key",
+      "description": "Pastes the selected clip at the cursor.",
+      "default": "alt+v"
+    },
+    "drop": {
+      "type": "string",
+      "title": "Delete key",
+      "description": "Deletes the selected clip.",
+      "default": "alt+d"
+    },
+    "older": {
+      "type": "string",
+      "title": "Older-clip key",
+      "description": "Selects the older clip.",
+      "default": "alt+up"
+    },
+    "newer": {
+      "type": "string",
+      "title": "Newer-clip key",
+      "description": "Selects the newer clip.",
+      "default": "alt+down"
+    },
+    "pane": {
+      "type": "string",
+      "title": "Pane key",
+      "description": "Opens or closes the full list (also /clips).",
+      "default": "alt+c"
+    },
+    "help": {
+      "type": "string",
+      "title": "Help key",
+      "description": "Opens or closes the help pane.",
+      "default": "alt+h"
+    }
+  },
+  "author": {
+    "name": "summerz",
+    "url": "https://github.com/summerz"
   }
 }

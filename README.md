@@ -6,37 +6,38 @@ A kill ring for the Claude Code prompt box.
 
 ## Why
 
-You are halfway through a prompt, and something comes up. Or you change your mind. You need to set aside what you typed, write something else first, and not lose the first thing.
+Three cases the prompt box does not handle:
 
-Or you wrote a long prompt, and Claude's answer came out different from what you expected. You want to shelve the draft, send a different message, and come back to the draft later.
+- A half-typed prompt has to wait while you send something else.
+- A long draft needs shelving after Claude's answer comes out unexpected.
+- Something you copied needs to be pasted several prompts later.
 
-Or you copied something and want to paste it later, maybe after several other prompts.
-
-clipring covers all three. One key cuts the line (or the whole draft) into a history that survives restarts. A band above the prompt shows what is parked. Another key pastes it back where the cursor is. If you know Emacs, it works like the kill ring.
+A key cuts the line or the whole draft into a history that persists across restarts. The band above the prompt shows it. A key pastes it back at the cursor. It works like the kill ring in Emacs.
 
 ## Install
 
-At the prompt of a terminal session:
+Run in the prompt of a terminal session:
 
 ```
 /plugin install clipring --marketplace summerz/clipring
 ```
 
-Answer `y` to add the marketplace, then pick a scope. From a shell, run `claude plugin install clipring --marketplace summerz/clipring`. In the desktop app, `/plugin` does not run. There, click + next to the prompt box, then Plugins, then Add marketplace with `summerz/clipring`, then Add plugin.
+Answer `y` to add the marketplace, then pick a scope.
 
-## What it does
+- Prompt: the command above.
+- Shell: `claude plugin install clipring --marketplace summerz/clipring`
+- Desktop app: `/plugin` does not run. Click + next to the prompt box, then Plugins, then Add marketplace with `summerz/clipring`, then Add plugin.
 
-Text you cut from the prompt box goes into a history of up to 50 clips. The history is kept across sessions, and the text also goes onto the system clipboard. The band above the prompt shows the selected clip and how many you have. Chords appear there and in the help pane as symbols such as ⌥⌫.
+## Features
 
-Type `/clips` to open a pane that lists everything. Press Enter to paste, Esc to close.
-
-Cuts in a row merge into one clip, like Emacs kills. The cursor lands at the end of the line above, so pressing the key again keeps eating upward.
-
-Shift+left/right select text. Your next cut takes the selection.
-
-Text you kill with ctrl+u or ctrl+k lands in the ring too. A whole-line kill counts as a line cut. That means cmd+backspace works even in terminals that send it as ctrl+u.
-
-If you type with Korean (2-set) input on, the chords still work.
+- Keeps up to 50 clips, persisted across sessions. Cut text also goes to the system clipboard.
+- Shows the selected clip and the clip count in the band above the prompt. Chords appear there and in the help pane as symbols such as ⌥⌫.
+- `/clips` opens a pane that lists every clip. Press Enter to paste, Esc to close.
+- Merges consecutive cuts into one clip, as Emacs kills do.
+- Leaves the cursor at the end of the line above after a line cut. Press the key again to keep cutting upward.
+- Selects text with Shift+left/right. The next cut takes the selection.
+- Captures text killed with ctrl+u or ctrl+k. A whole-line kill counts as a line cut, so cmd+backspace works in terminals that send it as ctrl+u.
+- Chords work with Korean (2-set) input on.
 
 ## Keys
 
@@ -56,9 +57,9 @@ If you type with Korean (2-set) input on, the chords still work.
 | In the pane: `d` | delete |
 | In the pane: `esc` | close |
 
-## Changing the keys
+## Configuration
 
-Every chord is a setting. You can change it in the plugin's rows of the config menu, or in `~/.claude/settings.json`:
+Every chord is a setting. Change it in the plugin's rows of the config menu, or in `~/.claude/settings.json`:
 
 ```json
 { "pluginConfigs": { "clipring": { "paste": "alt+p", "cut": "ctrl+x" } } }
@@ -68,10 +69,18 @@ Write a chord as `ctrl`, `alt` (or `option`), `shift` joined with `+`, then the 
 
 ## Notes
 
-1. Most terminals never pass shift+up/down to the prompt box, so there is no vertical selection. Use repeated cuts instead.
-2. The band's buttons also answer the default chords through Claude Code keybindings, when the prompt box does not take them first. A chord you changed works through the prompt box alone.
+1. Most terminals never pass shift+up/down to the prompt box, so there is no vertical selection. Use repeated cuts.
+2. The band's buttons also answer the default chords through Claude Code keybindings, when the prompt box does not take them first. Changed chords work through the prompt box only.
+3. Optional: the band's buttons receive only keys the engine binds to an action. To let them answer the default chords outside the prompt box, add to `~/.claude/keybindings.json`:
 
-A tip, only if you want it: `~/.claude/keybindings.json` can carry the option-key chords. A mod's button can only receive keys the engine has bound to an action, so this file is how the band buttons answer the default chords from outside the prompt box. If you do not need that, skip it. Be aware that the Global `meta+up` / `meta+down` entries override Claude Code's defaults for those keys (`app:diffFileListUp` / `app:diffFileListDown`, which stay on ctrl+up / ctrl+down). To remove them, delete the blocks marked `clipring` in that file, and the defaults come back.
+```json
+{ "bindings": [
+  { "context": "Global", "bindings": { "meta+up": "pane:previous", "meta+down": "pane:next", "meta+v": "footer:dismiss", "meta+d": "diff:back", "meta+c": "theme:editCustom", "meta+h": "confirm:previousField" } },
+  { "context": "Pane", "bindings": { "meta+backspace": "attachments:remove" } }
+] }
+```
+
+   `meta+up` / `meta+down` then override Claude Code's `app:diffFileListUp` / `app:diffFileListDown`, which stay on ctrl+up / ctrl+down. Remove the entries to restore them.
 
 ## License
 
